@@ -1,0 +1,36 @@
+#将以下内容注释，因为要用我们自己生成的证书
+# ---
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  labels:
+#    k8s-app: kubernetes-dashboard
+#  name: kubernetes-dashboard-certs
+#  namespace: kubernetes-dashboard
+#type: Opaque
+...
+# 修改启动参数，添加证书路径
+...
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+spec:
+...
+    spec:
+      containers:
+        - name: kubernetes-dashboard
+          image: kubernetesui/dashboard:v2.0.3
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8443
+              protocol: TCP
+          command:                              # 新增
+            - /dashboard                        # 新增
+          args:
+            - --auto-generate-certificates
+            - --namespace=kubernetes-dashboard
+            - --token-ttl=3600                  # 新增
+            - --bind-address=0.0.0.0            # 新增
+            - --tls-cert-file=dashboard.crt     # 新增 
+            - --tls-key-file=dashboard.key      # 新增 
+

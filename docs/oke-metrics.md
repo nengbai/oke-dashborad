@@ -1,6 +1,6 @@
 # Kubernetes核心指标监控——Metrics Server
 
-## 1、概述
+## 1、Mestrics 概述
 
 Kubernetes v1.8开始，使用Metrics API的形式获取，对资源监控。例如Pods CPU和内存使用率,通过使用kubectl top命令），或者由集群中的控制器（例如，Horizontal Pod Autoscaler）使用来进行决策，具体的组件为Metrics Server，用来替换之前的heapster，heapster从
 v1.11开始逐渐被废弃。OKE 完全兼容Metrics Server，可以使用这个组件监控。

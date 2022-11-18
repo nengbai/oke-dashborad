@@ -3,6 +3,7 @@
 ## 1. Downlaod oke dashboard
 
 git clone <https://github.com/nengbai/oke-dashborad.git>
+
 cd oke-dashborad
 
 ## 2.Update demain and Genneal cer

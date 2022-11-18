@@ -296,13 +296,13 @@ spec:
 
 APIService提供了v1beta1.metrics.k8s.io的API，并绑定至一个名为metrics-server的Service资源对象。
 可以通过kubectl get apiservices命令查询集群中的APIService。
-因此，访问Metrics-Server的方式如下：
+访问Metrics-Server的方式如下：
 
 ``` text
     /apis/metrics.k8s.io/v1beta1  --->   metrics-server.kube-system.svc  --->   x.x.x.x
 
 for example:
-发起请求 ----->+ API Server ------------>+ Service：metrics-server ----->+ Pod：metrics-server-xxx-xxx 
+发起请求 --->+ API Server ---->+ Service：metrics-server --->+ Pod：metrics-server-xxx-xxx 
 ```
 
 通过访问Metrics-Server的方式，HPA，kubectl top等对象就可以正常工作了。

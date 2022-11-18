@@ -2,14 +2,12 @@
 
 ## 1、Mestrics 概述
 
-Kubernetes v1.8开始，使用Metrics API的形式获取，对资源监控。例如Pods CPU和内存使用率,通过使用kubectl top命令），或者由集群中的控制器（例如，Horizontal Pod Autoscaler）使用来进行决策，具体的组件为Metrics Server，用来替换之前的heapster，heapster从
-v1.11开始逐渐被废弃。OKE 完全兼容Metrics Server，可以使用这个组件监控。
+Kubernetes v1.8开始，使用Metrics API的形式获取，对资源监控。例如Pods CPU和内存使用率,通过使用kubectl top命令），或者由集群中的控制器（例如，Horizontal Pod Autoscaler）使用来进行决策，具体的组件为Metrics Server，用来替换之前的heapster heapster从v1.11开始逐渐被废弃。OKE 完全兼容Metrics Server，可以使用这个组件监控。
 
 Metrics-Server是集群核心监控数据的聚合器。通俗地说，它存储了集群中各节点的监控数据，并且提供了API以供分析和使用。Metrics-Server作为一个 Deployment对象默认部署在Kubernetes集群中。不过准确地说，它是Deployment，Service，ClusterRole，ClusterRoleBinding，APIService，RoleBinding等资源对象的综合体。
 
-项目地址：<https://github.com/kubernetes-sigs/metrics-server> ,目前稳定版本是v0.5.2。
-
-metric-server主要用来通过aggregate api向其它组件（kube-scheduler、HorizontalPodAutoscaler、Kubernetes集群客户端等）提供集群中的pod和node的cpu和memory的监控指标，弹性伸缩中的podautoscaler就是通过调用这个接口来查看pod的当前资源使用量来进行pod的扩缩容的。
+项目地址：<https://github.com/kubernetes-sigs/metrics-server>
+目前稳定版本是v0.5.2,metric-server主要用来通过aggregate api向其它组件（kube-scheduler、HorizontalPodAutoscaler、Kubernetes集群客户端等）提供集群中的pod和node的cpu和memory的监控指标，弹性伸缩中的podautoscaler就是通过调用这个接口来查看pod的当前资源使用量来进行pod的扩缩容的。
 需要注意的是：
     metric-server提供的是实时的指标（实际是最近一次采集的数据，保存在内存中），并没有数据库来存储
     这些数据指标并非由metric-server本身采集，而是由每个节点上的cadvisor采集，metric-server只是发请求给cadvisor并将metric格式的数据转换成aggregate api

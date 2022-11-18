@@ -261,13 +261,10 @@ node2     421m         5%     14476Mi         48%
 ## 3、原理
 
 Metrics server定时从Kubelet的Summary API(类似/ap1/v1/nodes/nodename/stats/summary)采集指标信息，这些聚合过的数据将存储在内存中，且以metric-api的形式暴露出去。
-
 Metrics server复用了api-server的库来实现自己的功能，比如鉴权、版本等，为了实现将数据存放在内存中吗，去掉了默认的etcd存储，引入了内存存储（即实现Storage interface)。
 
 因为存放在内存中，因此监控数据是没有持久化的，可以通过第三方存储来拓展。
-
 来看下Metrics-Server的架构：
-
 metrics-server架构
 
 从 Kubelet、cAdvisor 等获取度量数据，再由metrics-server提供给 Dashboard、HPA 控制器等使用。本质上metrics-server相当于做了一次数据的转换，把cadvisor格式的数据转换成了kubernetes的api的json格式。由此我们不难猜测，metrics-server的代码中必然存在这种先从metric中获取接口中的所有信息，再解析出其中的数据的过程。我们给metric-server发送请求时，metrics-server中已经定期从中cadvisor获取好数据了，当请求发过来时直接返回缓存中的数据。
@@ -281,11 +278,8 @@ Metrics-Server通过kubelet获取监控数据。
 ## 5、如何提供监控数据
 
 Metrics-Server通过metrics API提供监控数据。
-
 先说下API聚合机制，API聚合机制是kubernetes 1.7版本引入的特性，能将用户扩展的API注册至API Server上。
-
 API Server在此之前只提供kubernetes资源对象的API，包括资源对象的增删查改功能。有了API聚合机制之后，用户可以发布自己的API，而Metrics-Server用到的metrics API和custom metrics API均属于API聚合机制的应用。
-
 用户可通过配置APIService资源对象以使用API聚合机制(API聚合机制详解请参考：Kubernetes APIService资源)，如下是metrics API的配置文件：
 
 apiVersion: apiregistration.k8s.io/v1beta1
@@ -302,21 +296,15 @@ spec:
   groupPriorityMinimum: 100
   versionPriority: 100
 
-如上，APIService提供了一个名为v1beta1.metrics.k8s.io的API，并绑定至一个名为metrics-server的Service资源对象。
-
+APIService提供了v1beta1.metrics.k8s.io的API，并绑定至一个名为metrics-server的Service资源对象。
 可以通过kubectl get apiservices命令查询集群中的APIService。
-
 因此，访问Metrics-Server的方式如下：
 
 ``` text
     /apis/metrics.k8s.io/v1beta1  --->   metrics-server.kube-system.svc  --->   x.x.x.x
-```
 
-``` text
-
-+---------+       +-----------+                   +------------------------+        +-----------------------------+
-| 发起请求 +----->+ API Server +----------------->+ Service：metrics-server +-------->+ Pod：metrics-server-xxx-xxx |
-+---------+       +-----------+                   +------------------------+        +-----------------------------+
+for example:
+发起请求 ----->+ API Server ------------>+ Service：metrics-server ----->+ Pod：metrics-server-xxx-xxx 
 ```
 
 通过访问Metrics-Server的方式，HPA，kubectl top等对象就可以正常工作了。

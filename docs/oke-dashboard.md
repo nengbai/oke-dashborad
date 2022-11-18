@@ -4,7 +4,7 @@
 
 git clone <https://github.com/nengbai/oke-dashborad.git>
 
-cd oke-dashborad
+cd oke-dashborad/dashboard
 
 ## 2.Update demain and Genneal cer
 

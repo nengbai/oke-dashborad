@@ -1,0 +1,13 @@
+{
+    "workshoptitle": "OCI Install for OKE Dashboard & Metrics",
+    "tutorials": [
+        {           
+            "title": "OKE Dashboard配置",
+            "filename": "./docs/oke-dashboard.md"
+        },
+        {
+            "title": "OKE Metrics Services配置",
+            "filename": "./docs/oke-metrics.md" 
+        }
+    ]
+}

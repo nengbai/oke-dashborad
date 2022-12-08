@@ -6,6 +6,14 @@
             "filename": "./docs/oke-dashboard.md"
         },
         {
+            "title": "OKE Kuboard配置",
+            "filename": "./docs/oke-kuboard.md" 
+        },
+        {
+            "title": "OKE KubeSphere配置",
+            "filename": "./docs/oke-metrics.md" 
+        },
+        {
             "title": "OKE Metrics Services配置",
             "filename": "./docs/oke-metrics.md" 
         }

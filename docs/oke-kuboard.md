@@ -28,7 +28,7 @@
 1、 验证OCI Docker Registry登录
 
     ```bash
-    docker login icn.ocir.io -u '<tancy/oci username>'
+    docker login icn.ocir.io -u '<tenacy/oci username>'
     ````
 2、拉取 公网Kuboard 和 etcd镜像，并重命名OCI Docker Registry存储路径
 

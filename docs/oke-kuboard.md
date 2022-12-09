@@ -4,18 +4,16 @@
 
 ### $1.1、选择3个OKE Worker增加role标识etcd
    
-   ```bash
-   $ <copy> kubectl get nodes </copy>
-   ```
+```bash
+$ <copy> kubectl get nodes </copy>
 
-    ```bash
-       $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
-    ```
+$ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
+```
 
 ### $1.2、Namespace准备
 
     ```bash
-    $<copy>kubectl create ns kuboard</copy>
+    $ <copy>kubectl create ns kuboard</copy>
     ```
 
 ### $1.3、Secret 准备

@@ -18,8 +18,11 @@ Kubernetes v1.8开始，使用Metrics API的形式获取，对资源监控（例
 
 1、下载对应的稳定版本，目前稳定版本是v0.5.2：
 参照<https://github.com/kubernetes-sigs/metrics-server> 中Compatibility Matrix对应信息.
-wget <https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.2/components.yaml>
 
+  ```bash
+  wget <https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.2/components.yaml>
+  ```
+  
 components.yaml 修改部署清单内容：
 
 ```text

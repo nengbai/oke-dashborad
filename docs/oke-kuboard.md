@@ -3,12 +3,18 @@
 ## $1. 环境准备
 
 ### $1.1、选择3个OKE Worker增加role标识etcd
-   
-```bash
-$ <copy> kubectl get nodes </copy>
 
-$ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
-```
+1、获取节点信息
+
+    ```bash
+    $ <copy> kubectl get nodes </copy>
+    ```
+
+2、标识节点为etcd
+
+    ```bash
+    $<copy> kubectl label nodes 10.0.10.12 k8s.hubbard.cn/role=etcd </copy>
+    ```
 
 ### $1.2、Namespace准备
 
@@ -21,7 +27,7 @@ $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
     为了能安全正常从OCI Docker Registry拉取容器镜像，需要使用该集群OCI账号和 auth token 在OKE集群中该Namespace中增加Secret Key。例如：为Namespace kuboard 增加 Secret Key。
 
     ```bash
-    <copy>kubectl create secret docker-registry ocisecret --docker-server=icn.ocir.io --docker-username='<oci username>' --docker-password='<auth token>' --docker-email='<email address>' -n kuboard </copy>
+    $<copy>kubectl create secret docker-registry ocisecret --docker-server=icn.ocir.io --docker-username='<oci username>' --docker-password='<auth token>' --docker-email='<email address>' -n kuboard </copy>
     ```
 
 ### $1.4、Kuboard 和 etcd镜像准备
@@ -30,17 +36,17 @@ $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
 1、 验证OCI Docker Registry登录
 
     ```bash
-    <copy>docker login icn.ocir.io -u '<tenacy/oci username>'</copy>
+    $<copy>docker login icn.ocir.io -u '<tenacy/oci username>'</copy>
     ````
-2、拉取 公网Kuboard 和 etcd镜像，并重命名OCI Docker Registry存储路径
+2、拉取oard 和 etcd镜像，并重命名OCI Docker Reantry存储路径
 
     ```bash
     $ <copy> docker pull eipwork/kuboard:v3 </copy>
     $ <copy> docker tag docker.io/eipwork/kuboard:v3 icn.ocir.io/cnxcypamq98c/devops-repos/kuboard:v3 </copy>
-    $ <copy> docker pull eipwork/etcd-host:3.4.16-2 </copy>
-    $ <copy> docker tag docker.io/eipwork/etcd-host:3.4.16-2 icn.ocir.io/cnxcypamq98c/devops-repos/etcd-host:3.4.16-2 <copy> 
+    docker pull eipwork/etcd-host: </copy>
+    docker tag docker.io/eipwork/etcd-host:3.4.16-2 icn.ocir.io/cnxcypamq98c/devops-repos/et3.4.16-2 <copy> 
     ```
-3、 上传到OCI Docker Registry存储
+3、 上传Docker Registry存储
 
     ```bash
     $ <copy> docker push icn.ocir.io/cnxcypamq98c/devops-repos/kuboard:v3 </copy> 
@@ -53,7 +59,7 @@ $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
 
     ```bash
     $ <copy> curl -o kuboard-v3.yaml https://github.com/nengbai/oke-dashborad/blob/main/kuboard/kuboard-v3.yaml </copy> 
-    $ <copy> curl -o kuboard-ingress.yaml https://github.com/nengbai/oke-dashborad/blob/main/kuboard/kuboard-ingress.yaml </copy> 
+    $ <copy> curl -o kuboard-ingress.yaml https://github.com/nengbai/oke-dashborad/blob/main/kuboard/kuboard-ingress.yaml </copy>
     ```
 
 ### $2.2、 编辑调整 kuboard-v3.yaml 中kuboard和etcd章节containers下面参数
@@ -76,7 +82,7 @@ $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
     ```bash
     $ <copy> kubectl kuboard-v3.yaml</copy> 
     namespace/kuboard created
-    configmap/kuboard-v3-config created
+    co/kuboard-v3-config crea
     serviceaccount/kuboard-boostrap created
     clusterrolebinding.rbac.authorization.k8s.io/kuboard-boostrap-crb created
     daemonset.apps/kuboard-etcd created
@@ -89,16 +95,16 @@ $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
     ```bash
     $ <copy> kubectl -n kuboard get pod </copy> 
     NAME                          READY   STATUS    RESTARTS   AGE
-    kuboard-etcd-hfsmb            1/1     Running   0          40s
+    kutcd-hfsmb            1/1  g   0          40s
     kuboard-etcd-rn8q6            1/1     Running   0          39s
     kuboard-etcd-xgchj            1/1     Running   0          40s
     kuboard-v3-7b6698fc79-lrsxz   1/1     Running   0          40s
-     ```
+    ```
 
     ```bash
     $ <copy> kubectl -n kuboard get svc </copy> 
     NAME         TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)                                        AGE
-    kuboard-v3   NodePort   10.96.183.245   <none>        80:30080/TCP,10081:30081/TCP,10081:30081/UDP   2m56s
+    ku3   NodePort   10.96.183.2e>        80:30080/TCP,10081:30081/TCP,10081:30081/UDP   2m56s
     ```
 
 ### $2.4、Kuboard增加Ingress
@@ -110,13 +116,12 @@ $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
     $ <copy> kubectl apply -f kuboard-ingress.yaml </copy> 
     ingress.networking.k8s.io/oke-kuboard-ingress created
     ```
-
 3、检查Ingress状态
 
     ```bash
     $ <copy> kubectl -n kuboard get ing</copy> 
     NAME                  CLASS   HOSTS                     ADDRESS          PORTS     AGE
-    oke-kuboard-ingress   nginx   oke-kuboard.example.com   141.147.172.67   80, 443   2m44s
+    okrd-ingress   nginx   oke-kxample.com   141.147.172.67   80, 443   2m44s
     ```
 
 ## $3、验证
@@ -127,7 +132,6 @@ $ <copy> kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd</copy>
     ```bash
     $ <copy> sudo vi /etc/hosts</copy> 
     141.147.172.67  oke-kuboard.example.com
-    ```
 
 2、浏览器访问 Kuboard 验证
 

@@ -4,7 +4,7 @@
 
 ### $1.1、选择3个OKE Worker增加role标识etcd
 
-    ```bash
+    ```
         kubectl label nodes 10.0.10.12 k8s.kuboard.cn/role=etcd
     ```
 

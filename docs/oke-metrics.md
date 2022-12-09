@@ -20,9 +20,9 @@ Kubernetes v1.8开始，使用Metrics API的形式获取，对资源监控（例
 参照<https://github.com/kubernetes-sigs/metrics-server> 中Compatibility Matrix对应信息.
 
   ```bash
-  wget <https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.2/components.yaml>
+  wget https://github.com/kubernetes-sigs/metrics-server/releases/download/v0.5.2/components.yaml
   ```
-  
+
 components.yaml 修改部署清单内容：
 
 ```text

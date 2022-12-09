@@ -132,7 +132,7 @@
     ```bash
     $ <copy> sudo vi /etc/hosts</copy> 
     141.147.172.67  oke-kuboard.example.com
-
+    ```
 2、浏览器访问 Kuboard 验证
 
     在浏览器中打开链接<http://your-ingress>

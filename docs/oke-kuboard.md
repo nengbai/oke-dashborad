@@ -6,27 +6,27 @@
 
 1、获取节点信息
 
-    ```bash
+    ```
     $ <copy> kubectl get nodes </copy>
     ```
 
 2、标识节点为etcd
 
-    ```bash
+    ```
     $<copy> kubectl label nodes 10.0.10.12 k8s.hubbard.cn/role=etcd </copy>
     ```
 
 ### $1.2、Namespace准备
 
-    ```bash
-    $ <copy>kubectl create ns kuboard</copy>
+    ```
+    $ <copy> kubectl create ns kuboard </copy>
     ```
 
 ### $1.3、Secret 准备
 
     为了能安全正常从OCI Docker Registry拉取容器镜像，需要使用该集群OCI账号和 auth token 在OKE集群中该Namespace中增加Secret Key。例如：为Namespace kuboard 增加 Secret Key。
 
-    ```bash
+    ```
     $<copy>kubectl create secret docker-registry ocisecret --docker-server=icn.ocir.io --docker-username='<oci username>' --docker-password='<auth token>' --docker-email='<email address>' -n kuboard </copy>
     ```
 
@@ -35,16 +35,16 @@
 下面以OCI Docker Registry: icn.ocir.io为例演示。
 1、 验证OCI Docker Registry登录
 
-    ```bash
-    $<copy>docker login icn.ocir.io -u '<tenacy/oci username>'</copy>
+    ```
+    $<copy> docker login icn.ocir.io -u '<tenacy/oci username>' </copy>
     ````
 2、拉取oard 和 etcd镜像，并重命名OCI Docker Reantry存储路径
 
     ```bash
     $ <copy> docker pull eipwork/kuboard:v3 </copy>
     $ <copy> docker tag docker.io/eipwork/kuboard:v3 icn.ocir.io/cnxcypamq98c/devops-repos/kuboard:v3 </copy>
-    docker pull eipwork/etcd-host: </copy>
-    docker tag docker.io/eipwork/etcd-host:3.4.16-2 icn.ocir.io/cnxcypamq98c/devops-repos/et3.4.16-2 <copy> 
+    $ <copy> docker pull eipwork/etcd-host: </copy>
+    $ <copy> docker tag docker.io/eipwork/etcd-host:3.4.16-2 icn.ocir.io/cnxcypamq98c/devops-repos/et3.4.16-2 <copy> 
     ```
 3、 上传Docker Registry存储
 
